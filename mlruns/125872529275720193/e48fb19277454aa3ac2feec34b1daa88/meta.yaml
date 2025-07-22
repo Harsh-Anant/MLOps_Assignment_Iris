@@ -1,0 +1,14 @@
+artifact_uri: file:///content/mlruns/125872529275720193/e48fb19277454aa3ac2feec34b1daa88/artifacts
+end_time: 1753210623061
+entry_point_name: ''
+experiment_id: '125872529275720193'
+lifecycle_stage: active
+run_id: e48fb19277454aa3ac2feec34b1daa88
+run_name: Logistic_Regression_Iris
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753210610745
+status: 3
+tags: []
+user_id: root
