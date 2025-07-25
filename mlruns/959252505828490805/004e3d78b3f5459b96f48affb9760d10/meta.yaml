@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/krish/Downloads/jupyter_projects/mlruns/959252505828490805/004e3d78b3f5459b96f48affb9760d10/artifacts
+end_time: 1753355044808
+entry_point_name: ''
+experiment_id: '959252505828490805'
+lifecycle_stage: active
+run_id: 004e3d78b3f5459b96f48affb9760d10
+run_name: RandomForest_Iris
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753355040460
+status: 3
+tags: []
+user_id: krish

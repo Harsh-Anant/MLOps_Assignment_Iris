@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/krish/Downloads/jupyter_projects/mlruns/959252505828490805/models/m-edac960944a7410da2a5d26e7cb3d932/artifacts
+creation_timestamp: 1753355034719
+experiment_id: '959252505828490805'
+last_updated_timestamp: 1753355037997
+model_id: m-edac960944a7410da2a5d26e7cb3d932
+model_type: null
+name: model
+source_run_id: 463d1ad9bde446a197d6a90cb82d217d
+status: 2
+status_message: null

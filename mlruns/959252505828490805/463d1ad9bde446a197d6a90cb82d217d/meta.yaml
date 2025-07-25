@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/krish/Downloads/jupyter_projects/mlruns/959252505828490805/463d1ad9bde446a197d6a90cb82d217d/artifacts
+end_time: 1753355038497
+entry_point_name: ''
+experiment_id: '959252505828490805'
+lifecycle_stage: active
+run_id: 463d1ad9bde446a197d6a90cb82d217d
+run_name: Logistic_Regression_Iris
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753355034575
+status: 3
+tags: []
+user_id: krish
