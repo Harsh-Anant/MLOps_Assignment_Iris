@@ -29,7 +29,7 @@ jobs:
 
 
       - name: Run tests
-        run: pytest src/API_Test.py
+        run: pytest src/test_api_cicd.py
 
       - name: Build Docker image
         run: docker build -t krishanu25/ml-api .
