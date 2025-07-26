@@ -10,6 +10,6 @@ def test_predict():
     "petal length (cm)": 6.9,
     "petal width (cm)": 2.3
   }
-  response = client.post("/predict", json=sample_input)
+  response = client.post("/predict", json=input)
   assert response.status_code == 200
   assert "prediction" in response.json()
