@@ -1,9 +1,8 @@
 # app_test.py
 import mlflow.pyfunc
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Feild
 import pandas as pd
-import os
 
 app = FastAPI()
 
@@ -13,7 +12,7 @@ app = FastAPI()
 model = mlflow.pyfunc.load_model("models:/IrisSpeciesClassifier/1")  # or use 'Production'
 
 # Define input data schema using Pydantic
-from pydantic import BaseModel, Field
+#from pydantic import BaseModel, Field
 
 class IrisInput(BaseModel):
     sepal_length_cm: float = Field(..., alias="sepal length (cm)")
