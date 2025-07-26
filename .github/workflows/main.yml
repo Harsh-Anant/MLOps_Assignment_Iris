@@ -24,6 +24,10 @@ jobs:
       - name: Lint code
         run: flake8 src/
 
+      - name: Auto-format code
+        run: black src/
+
+
       - name: Run tests
         run: pytest src/API_Test.py
 
