@@ -21,11 +21,11 @@ jobs:
           pip install -r requirements.txt
           pip install flake8 pytest
 
-      - name: Lint code
-        run: flake8 src/
-
       - name: Auto-format code
         run: black src/
+        
+      - name: Lint code
+        run: flake8 src/
 
 
       - name: Run tests
