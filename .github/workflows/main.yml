@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install flake8 pytest
+          pip install flake8
 
       - name: Auto-format code
         run: black src/
