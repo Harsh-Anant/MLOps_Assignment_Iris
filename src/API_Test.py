@@ -18,9 +18,3 @@ input = {
 response = requests.post(url, json=input)
 print("Prediction:", (response.json()).get('prediction'))
 
-
-# In[ ]:
-
-
-
-
