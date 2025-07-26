@@ -30,10 +30,3 @@ def load_and_preprocess_iris():
 
 if __name__ == "__main__":
     load_and_preprocess_iris()
-
-
-# In[ ]:
-
-
-
-
