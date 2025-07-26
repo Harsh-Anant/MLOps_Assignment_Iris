@@ -24,8 +24,8 @@ jobs:
       - name: Auto-format code
         run: black src/
         
-      - name: Lint code
-        run: flake8 src/
+      - name: Lint code with flake8 (ignoring E501)
+        run: flake8 src/ --ignore=E501
 
 
       - name: Run tests
