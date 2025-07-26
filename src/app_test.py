@@ -1,7 +1,7 @@
 # app_test.py
 import mlflow.pyfunc
 from fastapi import FastAPI
-from pydantic import BaseModel, Feild
+from pydantic import BaseModel, Field
 import pandas as pd
 
 app = FastAPI()
