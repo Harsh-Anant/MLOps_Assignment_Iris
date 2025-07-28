@@ -12,9 +12,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 #COPY app.py .
 #COPY mlruns ./mlruns
 
-RUN test -f app.py
-
 COPY . /app
+
+RUN test -f app.py
 
 # Set the MLFLOW_TRACKING_URI environment variable inside the container
 ENV MLFLOW_TRACKING_URI="file:///app/mlruns"
