@@ -12,7 +12,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 #COPY app.py .
 #COPY mlruns ./mlruns
 
-COPY . /app
+#COPY . /app
+# Copy app code
+COPY app.py .
+COPY mlruns ./mlruns
+COPY src ./src
 
 RUN test -f app.py
 
