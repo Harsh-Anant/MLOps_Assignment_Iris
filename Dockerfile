@@ -22,7 +22,7 @@ COPY db ./db
 RUN test -f app.py
 
 # Set the MLFLOW_TRACKING_URI environment variable inside the container
-ENV MLFLOW_TRACKING_URI="file:///app/mlruns"
+#ENV MLFLOW_TRACKING_URI="file:///app/mlruns"
 
 # Expose FastAPI port
 EXPOSE 8000
@@ -30,3 +30,4 @@ EXPOSE 8000
 # Start the FastAPI app
 
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+
