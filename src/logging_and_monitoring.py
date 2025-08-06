@@ -17,6 +17,7 @@ DB_PATH = "db/predictions.db"
 def init_db():
     # Create DB only if it doesn't exist
     if not os.path.exists(DB_PATH):
+        print("Creating DB")
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''
