@@ -30,7 +30,7 @@ jobs:
       - name: Run Retraining Script
         id: retrain
         run: |
-          python src/model_retraining_and_mlfloe_registering.py
+          python src/model_retraining_and_mlflow_registering.py
         continue-on-error: false
 
       - name: Check if retraining was skipped
@@ -49,5 +49,6 @@ jobs:
 
       #- name: Push Docker image
        # run: docker push harshanant8876/iris-species-classifier-app
+
 
 
