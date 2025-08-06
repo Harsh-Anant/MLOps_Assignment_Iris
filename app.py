@@ -66,7 +66,7 @@ def predict_species(data: IrisInput):
 
 @app.get("/logs")
 def get_logs():
-    conn = sqlite3.connect("db/predictions.db")
+    conn = sqlite3.connect("predictions.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM predictions ORDER BY timestamp desc")
     rows = cursor.fetchall()
