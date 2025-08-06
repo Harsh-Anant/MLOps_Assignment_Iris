@@ -12,7 +12,7 @@ import os
 # In[4]:
 
 
-DB_PATH = "predictions.db"
+DB_PATH = "db/predictions.db"
 
 def init_db():
     # Create DB only if it doesn't exist
