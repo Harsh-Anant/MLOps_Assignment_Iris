@@ -12,14 +12,14 @@ import sys
 
 def run_retraining():
 
-    df_record_id = pd.read_csv('/src/last_record_id_trained.csv')
+    df_record_id = pd.read_csv('src/last_record_id_trained.csv')
 
     # Get the record id of the last record from the DB, which was used in deployed model training
     
     record_id = df_record_id.iloc[0,0]
     
     # Load data
-    conn = sqlite3.connect("/predictions.db")
+    conn = sqlite3.connect("predictions.db")
     df = pd.read_sql(f"SELECT * FROM predictions where id > {record_id} order by id desc", conn)
     conn.close()
 
@@ -31,8 +31,8 @@ def run_retraining():
         sys.exit(100)
         
     
-    X_already_train = pd.read_csv('/data/X_train.csv')
-    y_already_train = pd.read_csv('/data/y_train.csv')
+    X_already_train = pd.read_csv('data/X_train.csv')
+    y_already_train = pd.read_csv('data/y_train.csv')
     
     # Renaming all the predictions table columns according to the training dataset
     df.rename(columns={
