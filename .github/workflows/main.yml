@@ -27,6 +27,16 @@ jobs:
       - name: Lint code with flake8 (ignoring E501)
         run: flake8 src/ --ignore=E501
 
+      - name: Run Retraining Script
+        id: retrain
+        run: |
+          python src/model_retraining_and_mlfloe_registering.py
+        continue-on-error: false
+
+      - name: Check if retraining was skipped
+        id: check_retrain
+        run: echo "status=$([[ $? -eq 0 ]] && echo trained || echo skipped)" >> $GITHUB_OUTPUT
+
 
       #- name: Run tests
       #  run: pytest test_api_cicd.py
@@ -39,4 +49,5 @@ jobs:
 
       #- name: Push Docker image
        # run: docker push harshanant8876/iris-species-classifier-app
+
 
