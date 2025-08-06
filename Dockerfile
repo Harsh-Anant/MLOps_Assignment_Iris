@@ -17,6 +17,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY app.py .
 COPY mlruns ./mlruns
 COPY src ./src
+COPY db ./db
 
 RUN test -f app.py
 
@@ -27,4 +28,5 @@ ENV MLFLOW_TRACKING_URI="file:///app/mlruns"
 EXPOSE 8000
 
 # Start the FastAPI app
+
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
