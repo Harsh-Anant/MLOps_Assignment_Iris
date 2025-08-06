@@ -26,9 +26,9 @@ def run_retraining():
     #print(df.iloc[0,0])
 
     # DataFrames with training dataset
-    '''if len(df) < 50:
+    if len(df) < 50:
         print("Count of new records are less than 50 so, retraining not required.")
-        sys.exit(100)'''
+        sys.exit(100)
         
     
     X_already_train = pd.read_csv('data/X_train.csv')
