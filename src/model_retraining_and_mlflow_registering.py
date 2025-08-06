@@ -12,7 +12,7 @@ import sys
 
 def run_retraining():
 
-    df_record_id = pd.read_csv('last_record_id_trained.csv')
+    df_record_id = pd.read_csv('/src/last_record_id_trained.csv')
 
     # Get the record id of the last record from the DB, which was used in deployed model training
     
