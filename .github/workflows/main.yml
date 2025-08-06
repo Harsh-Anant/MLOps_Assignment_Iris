@@ -36,7 +36,9 @@ jobs:
       - name: Check if retraining was skipped
         id: check_retrain
         run: echo "status=$([[ $? -eq 0 ]] && echo trained || echo skipped)" >> $GITHUB_OUTPUT
-             echo $GITHUB_OUTPUT
+
+      - name: Step 2 - Use output
+        run: echo "${{ steps.check_retrain.outputs.status }}"
 
       #- name: Run tests
       #  run: pytest test_api_cicd.py
@@ -49,6 +51,7 @@ jobs:
 
       #- name: Push Docker image
        # run: docker push harshanant8876/iris-species-classifier-app
+
 
 
 
