@@ -148,3 +148,5 @@ def run_retraining():
     else:
         print("No data drift. Skipping retraining.")
         sys.exit(100)
+
+run_retraining()
