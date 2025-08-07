@@ -30,6 +30,7 @@ def init_db():
                 prediction INTEGER,
                 prediction_label TEXT,
                 timestamp TEXT
+                actual_label INTEGER
             )
         ''')
         conn.commit()
