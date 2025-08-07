@@ -60,6 +60,8 @@ def home():
 @app.post("/predict")
 def predict_species(data: IrisInput):
     print(data)
+    start_time = time.time()
+    REQUEST_COUNT.inc()  # Increment request count
     input_dict = {
         "sepal length (cm)": data.sepal_length_cm,
         "sepal width (cm)": data.sepal_width_cm,
@@ -87,6 +89,11 @@ def predict_species(data: IrisInput):
         "petal_width_cm": data.petal_width_cm
     }  
     log_prediction(input_to_log, [prediction,iris_category])
+
+    # Record latency
+    latency = time.time() - start_time
+    REQUEST_LATENCY.observe(latency)
+    
     return {"prediction": iris_category}
 
 @app.get("/logs")
@@ -97,3 +104,7 @@ def get_logs():
     rows = cursor.fetchall()
     conn.close()
     return {"logs": rows}
+
+@app.get("/metrics")
+def metrics():
+    return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
