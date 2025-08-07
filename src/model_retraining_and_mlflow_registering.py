@@ -20,36 +20,41 @@ def run_retraining():
     
     # Load data
     conn = sqlite3.connect("predictions.db")
-    df = pd.read_sql(f"SELECT * FROM predictions where id > {record_id} order by id desc", conn)
+    df = pd.read_sql("SELECT * FROM predictions order by id desc", conn)
     conn.close()
 
-    #print(df.iloc[0,0])
+    df_copy=df.copy()
 
     # DataFrames with training dataset
     if len(df) < 50:
         print("Count of new records are less than 50 so, retraining not required.")
         sys.exit(100)
+
+    elif (len(df) - record_id) >= 50:
+        df_copy.drop(columns=['id','prediction_label','timestamp','prediction'], inplace=True)
+        df_copy.drop_duplicates()
+        
         
     
     X_already_train = pd.read_csv('data/X_train.csv')
     y_already_train = pd.read_csv('data/y_train.csv')
     
     # Renaming all the predictions table columns according to the training dataset
-    df.rename(columns={
+    df_copy.rename(columns={
     "sepal_length": "sepal length (cm)",
     "sepal_width": "sepal width (cm)",
     "petal_length": "petal length (cm)",
     "petal_width": "petal width (cm)",
-    "prediction": "species"
+    "actual_label": "species"
     }, inplace=True)
 
     # Features and label from predicitons table
     
-    X_logged = df[[
+    X_logged = df_copy[[
         "sepal length (cm)", "sepal width (cm)",
         "petal length (cm)", "petal width (cm)"
     ]]
-    y_logged = df[["species"]]
+    y_logged = df_copy[["species"]]
 
     # Concatenating the input data with the training dataset
     
