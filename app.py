@@ -15,7 +15,7 @@ init_db()
 # Load the model from MLflow Model Registry
 
 #print(f"MLFLOW_TRACKING_URI from environment: {os.environ.get('MLFLOW_TRACKING_URI')}")
-model = mlflow.pyfunc.load_model("models:/IrisSpeciesClassifier/1")  # or use 'Production'
+model = mlflow.pyfunc.load_model("models:/IrisSpeciesClassifier/Production")  # or use 'Production'
 
 # Define input data schema using Pydantic
 
