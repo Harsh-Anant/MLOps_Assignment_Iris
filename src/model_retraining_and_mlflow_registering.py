@@ -19,7 +19,7 @@ def run_retraining():
     record_id = df_record_id.iloc[0,0]
     
     # Load data
-    conn = sqlite3.connect("db/predictions.db")
+    conn = sqlite3.connect("predictions.db")
     df = pd.read_sql(f"SELECT * FROM predictions where id > {record_id} order by id desc", conn)
     conn.close()
 
