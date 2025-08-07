@@ -1,2 +1,5 @@
 notebooks/
 data/
+src/model_retraining_and_mlflow_registering.py
+src/model_training_and_mlflow_registering.py
+src/data_preparation.py
