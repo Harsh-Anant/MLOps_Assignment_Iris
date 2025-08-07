@@ -6,16 +6,41 @@ import pandas as pd
 import os
 import sqlite3
 from src.logging_and_monitoring import init_db, log_prediction
+from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
+from fastapi.responses import Response
+import time
+import mlflow
+import mlflow.sklearn
+from mlflow.tracking import MlflowClient
+
 
 
 app = FastAPI()
+
+# Prometheus Metrics
+REQUEST_COUNT = Counter("prediction_requests_total", "Total number of prediction requests")
+REQUEST_LATENCY = Histogram("prediction_request_latency_seconds", "Latency of prediction requests in seconds")
 
 init_db()
 
 # Load the model from MLflow Model Registry
 
 #print(f"MLFLOW_TRACKING_URI from environment: {os.environ.get('MLFLOW_TRACKING_URI')}")
-model = mlflow.pyfunc.load_model("models:/IrisSpeciesClassifier/Production")  # or use 'Production'
+#model = mlflow.pyfunc.load_model("models:/IrisSpeciesClassifier/Production")  # or use 'Production'
+
+# Load the model from MLflow Model Registry
+
+mlflow.set_tracking_uri("file:///app/mlruns")
+
+client = MlflowClient()
+
+versions = client.get_latest_versions(name='IrisSpeciesClassifier')
+
+# Find the one with highest version number (latest)
+
+latest_version = max(versions, key=lambda v: int(v.version))
+
+model = mlflow.pyfunc.load_model(f"models:/IrisSpeciesClassifier/{latest_version.version}")  # or use 'Production'
 
 # Define input data schema using Pydantic
 
