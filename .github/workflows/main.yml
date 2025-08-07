@@ -32,18 +32,26 @@ jobs:
         run: |
           python src/model_retraining_and_mlflow_registering.py
         continue-on-error: true
+
+      - name: Check if retraining was skipped
+        id: check_retrain_status
+        run: echo "status=$([[ $? -eq 0 ]] && echo trained || echo skipped)" >> $GITHUB_OUTPUT
         
       #- name: Run tests
       #  run: pytest test_api_cicd.py
 
       - name: Build Docker image
+        if: steps.check_retrain_status.outputs.status == 'trained'
         run: docker build --no-cache -t harshanant8876/iris-species-classifier-app .
 
       - name: Login to Docker Hub
+        if: steps.check_retrain_status.outputs.status == 'trained'
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Push Docker image
+        if: steps.check_retrain_status.outputs.status == 'trained'
         run: docker push harshanant8876/iris-species-classifier-app
+
 
 
 
