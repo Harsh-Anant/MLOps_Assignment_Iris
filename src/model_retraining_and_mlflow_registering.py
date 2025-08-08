@@ -20,61 +20,66 @@ def run_retraining():
     
     # Load data
     conn = sqlite3.connect("predictions.db")
-    df = pd.read_sql("SELECT * FROM predictions order by id desc", conn)
+    df_logged = pd.read_sql("SELECT * FROM predictions order by id desc", conn)
     conn.close()
 
-    df_copy=df.copy()
+    df_logged.drop(columns=['id','prediction_label','timestamp','prediction'], inplace=True)
 
-    # DataFrames with training dataset
-    if len(df) < 50:
-        print("Count of new records are less than 50 so, retraining not required.")
-        sys.exit(100)
+    df_logged.drop_duplicates()
 
-    elif (len(df) - record_id) >= 50:
-        df_copy.drop(columns=['id','prediction_label','timestamp','prediction'], inplace=True)
-        df_copy.drop_duplicates()
-        
-        
-    
-    X_already_train = pd.read_csv('data/X_train.csv')
-    y_already_train = pd.read_csv('data/y_train.csv')
-    
     # Renaming all the predictions table columns according to the training dataset
-    df_copy.rename(columns={
+    df_logged.rename(columns={
     "sepal_length": "sepal length (cm)",
     "sepal_width": "sepal width (cm)",
     "petal_length": "petal length (cm)",
     "petal_width": "petal width (cm)",
     "actual_label": "species"
     }, inplace=True)
+    
+    df_logged_new = df_logged[record_id+1:].copy()
+    
+    # DataFrames with training dataset
+    if len(df_logged_new) < 30:
+        print("Count of new records are less than 30 so, retraining not required.")
+        sys.exit(100)
+
+    '''elif (len(df) - record_id) >= 50:
+        df_copy.drop(columns=['id','prediction_label','timestamp','prediction'], inplace=True)
+        df_copy.drop_duplicates()'''
+        
+    df_logged_old = df_logged[:record_id+1]
+
+    X_already_train = pd.read_csv('data/X_train.csv')
+    y_already_train = pd.read_csv('data/y_train.csv')
+    
+    
 
     # Features and label from predicitons table
     
-    X_logged = df_copy[[
+    X_logged = df_logged[[
         "sepal length (cm)", "sepal width (cm)",
         "petal length (cm)", "petal width (cm)"
     ]]
-    y_logged = df_copy[["species"]]
+    y_logged = df_logged[["species"]]
 
+    
     # Concatenating the input data with the training dataset
     
     X = pd.concat([X_already_train,X_logged],ignore_index=True)
     y = pd.concat([y_already_train,y_logged],ignore_index=True)
 
     # Concatenatiing the entire X and y dataframe
-    df_dataset = pd.concat([X,y],axis=1,ignore_index=True)
+    '''df_dataset = pd.concat([X,y],axis=1,ignore_index=True)
 
     # Dropping the duplicate records
     
-    df_dataset.drop_duplicates()
+    #df_dataset.drop_duplicates()
 
     X = df_dataset.iloc[:, :-1]  # All rows, all columns except the last
-    y = df_dataset.iloc[:, -1]   # All rows, only the last column
+    y = df_dataset.iloc[:, -1]   # All rows, only the last column'''
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state = 42, shuffle = True)
-
-    reference_data = X_already_train
-    current_data = X_logged
+    reference_data = pd.concat([X_already_train,df_logged_old],ignore_index=True)
+    current_data = df_logged_new
     features_to_monitor = [col for col in reference_data.columns]# if col != 'species']
     drifted_features_count = 0
     drift_details = {}
@@ -113,7 +118,7 @@ def run_retraining():
     print(f"\nTotal features with detected drift: {drifted_features_count}")
     
     if drifted_features_count>0:
-        
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state = 42, shuffle = True)
         mlflow.set_experiment("Iris Classification Experiment")
         mlflow.autolog()
         with mlflow.start_run(run_name="RandomForest_Iris"):
@@ -153,5 +158,6 @@ def run_retraining():
     else:
         print("No data drift. Skipping retraining.")
         sys.exit(100)
+
 
 run_retraining()
