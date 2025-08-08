@@ -37,13 +37,13 @@ def run_retraining():
     }, inplace=True)
     
     df_logged_new = df_logged[record_id+1:].copy()
-    
     # DataFrames with training dataset
     if len(df_logged_new) < 30:
         print("Count of new records are less than 30 so, retraining not required.")
         sys.exit(100)
+    
     df_logged_old=df_logged[:record_id+1]
-
+    
     X_already_train = pd.read_csv('data/X_train.csv')
     y_already_train = pd.read_csv('data/y_train.csv')    
 
