@@ -62,22 +62,11 @@ def run_retraining():
     X = pd.concat([X_already_train,X_logged],ignore_index=True)
     y = pd.concat([y_already_train,y_logged],ignore_index=True)
 
-    # Concatenatiing the entire X and y dataframe
-    '''df_dataset = pd.concat([X,y],axis=1,ignore_index=True)
-
-    # Dropping the duplicate records
-    
-    #df_dataset.drop_duplicates()
-
-    X = df_dataset.iloc[:, :-1]  # All rows, all columns except the last
-    y = df_dataset.iloc[:, -1]   # All rows, only the last column'''
-
     reference_data = pd.concat([X_already_train,df_logged_old],ignore_index=True)
     current_data = df_logged_new
     features_to_monitor = [col for col in reference_data.columns]# if col != 'species']
     drifted_features_count = 0
     drift_details = {}
-
     for feature in features_to_monitor:
         ref_mean = reference_data[feature].mean()
         curr_mean = current_data[feature].mean()
