@@ -24,8 +24,8 @@ jobs:
       - name: Auto-format code
         run: black src/
         
-      - name: Lint code with flake8 (ignoring E501)
-        run: flake8 src/ --ignore=E501
+      - name: Lint code with flake8 (ignoring E501, E203)
+        run: flake8 src/ --ignore=E501,E203
 
       - name: Run Retraining Script
         id: retrain
@@ -44,6 +44,7 @@ jobs:
 
       - name: Push Docker image
         run: docker push harshanant8876/iris-species-classifier-app
+
 
 
 
