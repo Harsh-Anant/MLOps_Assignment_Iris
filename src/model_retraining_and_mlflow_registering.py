@@ -151,7 +151,7 @@ def run_retraining():
         with open('last_record_id_trained.csv', 'w') as file:
             writer = csv.writer(file)
             writer.writerow(['RECORDID'])
-            writer.writerow([df.iloc[0,0]])
+            writer.writerow([df_logged.iloc[0,0]])
             
         print("New model trained and logged.")
         sys.exit(0)
